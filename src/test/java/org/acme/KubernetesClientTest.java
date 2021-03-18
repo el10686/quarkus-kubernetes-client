@@ -3,22 +3,23 @@ package org.acme;
 import io.fabric8.kubernetes.api.model.Pod;
 import io.fabric8.kubernetes.api.model.PodBuilder;
 import io.fabric8.kubernetes.api.model.PodListBuilder;
-import io.fabric8.kubernetes.client.server.mock.KubernetesServer;
+import io.fabric8.kubernetes.client.server.mock.KubernetesMockServer;
+import io.quarkus.test.common.QuarkusTestResource;
 import io.quarkus.test.junit.QuarkusTest;
-import io.quarkus.test.kubernetes.client.KubernetesTestServer;
-import io.quarkus.test.kubernetes.client.WithKubernetesTestServer;
+import io.quarkus.test.kubernetes.client.KubernetesMockServerTestResource;
+import io.quarkus.test.kubernetes.client.MockServer;
 import io.restassured.RestAssured;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.hamcrest.Matchers.is;
 
-@WithKubernetesTestServer
+@QuarkusTestResource(value = KubernetesMockServerTestResource.class)
 @QuarkusTest
 public class KubernetesClientTest {
 
-    @KubernetesTestServer
-    KubernetesServer mockServer;
+    @MockServer
+    KubernetesMockServer mockServer;
 
     @BeforeEach
     public void before() {
